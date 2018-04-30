@@ -1,0 +1,58 @@
+doctype html
+html
+    head
+        title SpotLight
+        link(rel="stylesheet" href="/css/bootstrap.min.css")
+        link(rel="stylesheet" href="/css/style.css")
+        link(rel='shortcut icon',type='image/x-icon',href='/images/favicon.ico.png')
+    body
+        nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
+                .navbar-header
+                    button.navbar-toggler.collapsed(type="button",data-toggle="collapse",data-target="#navbar",aria-expanded="false",aria-controls="navbar" )
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href="/",data-toggle="tooltip",data-placement="bottom",title="SpotLight Home")
+                        img.d-inline-block.align-top(src='/images/Spotlight_104px.png', width='30', height='30', alt='')
+                        |SpotLight
+                #navbar.collapse.navbar-collapse
+                    ul.nav.navbar-nav.mr-auto
+                        if user
+                            li
+                                a.nav-link(href="/articles/add") Add article
+                    if title == 'Articles'
+                        .mx-auto
+                            form.form-inline(method="post",action="/")
+                                input.form-control.mr-sm-2(type='search', placeholder='Search', aria-label='Search',name='search')
+                                button.btn.btn-outline-secondary.my-2.my-sm-0(type='submit') Search
+                    ul.nav.navbar-nav.mr-sm-2.my-lg-0
+                        if user
+                            li
+                                span.navbar-text.pr-2 Logged in as #{user.username}
+                            li
+                                a.nav-link(href="/users/cart/"+user._id) Shopping Cart
+                            li
+                                a.nav-link(href="/users/logout") Logout
+                        else
+                            li
+                                a.nav-link(href="/users/register") Register
+                            li
+                                a.nav-link(href="/users/login") Login
+        br
+        br
+        .container
+            != messages('message',locals)
+            if errors   
+                each error, i in errors
+                    div(class="alert alert-danger") #{error.msg}
+            
+            block content
+            br
+            hr
+            footer
+                p copyright &copy 2018
+        
+        script(src="/js/jquery.js")
+        script(src="/js/bootstrap.js")
+        script(src="/js/main.js")

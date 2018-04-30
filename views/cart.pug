@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    h1 #{user.username}'s Shopping Cart
+    ul.list-group
+        -var sum=0;
+        each article, i in cart
+            - sum = sum + (Number(article._id.price)*article.quantity);
+            .row
+                .col.m-12
+                    li.list-group-item
+                        h5
+                            a(href="/articles/"+article._id._id)=article._id.title
+                        p Price: #{article._id.price} $ Quantity: #{article.quantity}
+                        hr
+                        a.btn.btn-danger.delete-fromcart.mr-auto(href="#",data-id=article._id._id,user_id=user._id.toString()) Remove from Cart
+    h2 Shopping Cart Total = #{sum} $
